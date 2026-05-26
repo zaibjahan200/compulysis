@@ -5,7 +5,6 @@ metadata:
   labels:
     app: compulysis-db
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: compulysis-db
