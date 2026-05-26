@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: compulysis-frontend
+  labels:
+    app: compulysis-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: compulysis-frontend
+  template:
+    metadata:
+      labels:
+        app: compulysis-frontend
+    spec:
+      containers:
+        - name: compulysis-nginx
+          image: zaibjahan200/compulysis-webapp:latest
+          imagePullPolicy: Always
+          command:
+            - nginx
+            - -g
+            - "daemon off;"
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
