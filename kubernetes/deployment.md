@@ -139,3 +139,53 @@ kubectl delete -f db-deployment.yaml
 kubectl delete -f db-pvc.yaml   # WARNING: deletes DB data
 minikube stop
 ```
+# Create System Services
+## Compulysis Frontend Port forwarding
+```bash
+sudo nano /etc/systemd/system/compulysis-frontend.service
+```
+Paste this script
+```bash
+[Unit]
+Description=Compulysis Frontend Port Forward
+After=network.target
+
+[Service]
+User=ubuntu
+Restart=always
+# Run which kubectl to get the path to put below
+ExecStart=/usr/bin/kubectl port-forward --address 0.0.0.0 service/compulysis-frontend-service 8080:80 
+
+[Install]
+WantedBy=multi-user.target
+```
+## Dashboard Port Forwarding
+```bash
+sudo nano /etc/systemd/system/k8s-dashboard.service
+```
+```bash
+[Unit]
+Description=Kubernetes Dashboard Port Forward
+After=network.target
+
+[Service]
+User=ubuntu
+Restart=always
+ExecStart=/usr/bin/kubectl port-forward --address 0.0.0.0 -n kubernetes-dashboard service/kubernetes-dashboard 9090:80
+
+[Install]
+WantedBy=multi-user.target
+```
+Apply Changes and activate service
+
+```bash
+sudo systemctl daemon-reload
+
+sudo systemctl enable compulysis-frontend
+sudo systemctl start compulysis-frontend
+
+sudo systemctl enable k8s-dashboard
+sudo systemctl start k8s-dashboard
+```
+
+
