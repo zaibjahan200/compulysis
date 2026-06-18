@@ -6,9 +6,6 @@ from typing import Any, Dict, List
 
 import numpy as np
 import pandas as pd
-from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score, recall_score
-
-from app.services.ocd_model_service import ocd_model_service
 
 
 DIMENSION_COLUMNS = [
@@ -248,7 +245,19 @@ class DataExplorerCsvService:
         filtered = int(len(self._apply_filters(filters)))
         return {"total": total, "filtered": filtered}
 
+    def explorer_summary(self, filters: Dict[str, Any] | None) -> Dict[str, Any]:
+        return {
+            "demographics": self.demographics(filters),
+            "ocdAnalysis": self.ocd_analysis(filters),
+            "correlations": self.correlations(filters),
+            "counts": self.counts(filters),
+        }
+
     def model_lab_summary(self) -> Dict[str, Any]:
+        from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score, recall_score
+
+        from app.services.ocd_model_service import ocd_model_service
+
         data = _load_csv().copy()
 
         true_labels: List[int] = []

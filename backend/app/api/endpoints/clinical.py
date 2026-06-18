@@ -934,6 +934,15 @@ def explorer_demographics(
     }
 
 
+@router.post("/data-explorer/summary")
+def explorer_summary(
+    payload: Dict[str, Any],
+    current_user: User = Depends(get_current_psychologist),
+):
+    filters = payload.get("filters")
+    return get_data_explorer_csv_service().explorer_summary(filters)
+
+
 @router.post("/data-explorer/ocd-analysis")
 def explorer_ocd_analysis(
     payload: Dict[str, Any],

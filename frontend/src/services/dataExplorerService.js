@@ -1,6 +1,11 @@
 import api from './api';
 
 export const dataExplorerService = {
+  async getExplorerSummary(source, filters) {
+    const { data } = await api.post('/data-explorer/summary', { source, filters });
+    return data;
+  },
+
   async getDemographicsData(source, filters) {
     const { data } = await api.post('/data-explorer/demographics', { source, filters });
     return data;

@@ -38,7 +38,7 @@ const DataExplorer = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("demographics");
-  const [dataSource, setDataSource] = useState("personal"); // 'personal' or 'research'
+  const [dataSource, setDataSource] = useState("research"); // 'personal' or 'research'
 
   // Filters
   const [filters, setFilters] = useState({
@@ -61,28 +61,33 @@ const DataExplorer = () => {
       const psychologistId = user?.id || 1;
       const source = dataSource === "personal" ? psychologistId : "research";
 
-      const [demographics, ocdAnalysis, correlations, counts] =
-        await Promise.all([
+      let summary;
+      if (source === "research") {
+        summary = await dataExplorerService.getExplorerSummary(source, filters);
+      } else {
+        const [demographics, ocdAnalysis, correlations, counts] = await Promise.all([
           dataExplorerService.getDemographicsData(source, filters),
           dataExplorerService.getOcdAnalysisData(source, filters),
           dataExplorerService.getCorrelationData(source, filters),
           dataExplorerService.getDataCounts(source, filters),
         ]);
+        summary = { demographics, ocdAnalysis, correlations, counts };
+      }
 
       const normalizedOcdAnalysis = {
-        ...ocdAnalysis,
-        dimensionCorrelations: (ocdAnalysis?.dimensionCorrelations || []).map((item) => ({
+        ...summary.ocdAnalysis,
+        dimensionCorrelations: (summary.ocdAnalysis?.dimensionCorrelations || []).map((item) => ({
           ...item,
           dimension: String(item?.dimension || ''),
           correlation: Number(item?.correlation ?? 0),
         })),
       };
 
-      setDemographicsData(demographics);
+      setDemographicsData(summary.demographics);
       setOcdAnalysisData(normalizedOcdAnalysis);
-      setCorrelationData(correlations);
-      setFilteredCount(counts.filtered);
-      setTotalCount(counts.total);
+      setCorrelationData(summary.correlations);
+      setFilteredCount(summary.counts.filtered);
+      setTotalCount(summary.counts.total);
     } catch (error) {
       console.error("Error fetching explorer data:", error);
     } finally {
