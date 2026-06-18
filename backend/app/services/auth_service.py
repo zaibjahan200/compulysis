@@ -9,6 +9,7 @@ from app.core.security import (
     create_access_token,
     generate_reset_token
 )
+from app.services.email_service import EmailService
 
 
 class AuthService:
@@ -115,8 +116,8 @@ class AuthService:
         user.reset_token_expires = reset_token_expires
         db.commit()
         
-        # TODO: Send email with reset link
-        # send_password_reset_email(user.email, reset_token)
+        if EmailService.is_configured():
+            EmailService.send_password_reset_email(user.email, reset_token)
         
         return "Password reset instructions have been sent to your email."
     

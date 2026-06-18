@@ -1,0 +1,102 @@
+<svg viewBox="100 100 370 282" xmlns="http://www.w3.org/2000/svg" style="max-height: 500px" width="370" height="282">
+  <defs>
+    
+    <radialGradient r="70%" cy="50%" cx="50%" id="bgGrad">
+      <stop stop-color="#3a3d40" offset="0%"></stop>
+      <stop stop-color="#222426" offset="100%"></stop>
+    </radialGradient>
+
+    
+    <linearGradient y2="100%" x2="100%" y1="0%" x1="0%" id="brainBase">
+      <stop stop-color="#ff60a9" offset="0%"></stop>
+      <stop stop-color="#d82576" offset="60%"></stop>
+      <stop stop-color="#a11252" offset="100%"></stop>
+    </linearGradient>
+
+    
+    <filter height="130%" width="130%" y="-10%" x="-10%" id="dropShadow">
+      <feDropShadow flood-opacity="0.6" flood-color="#000000" stdDeviation="12" dy="10" dx="5"></feDropShadow>
+    </filter>
+    
+    
+    <filter height="140%" width="140%" y="-20%" x="-20%" id="innerGlow">
+      <feGaussianBlur result="blur" stdDeviation="4"></feGaussianBlur>
+      <feComposite result="shadowDiff" k3="1" k2="-1" operator="arithmetic" in2="SourceAlpha"></feComposite>
+      <feFlood flood-opacity="0.5" flood-color="#ff94ca"></feFlood>
+      <feComposite operator="in" in2="shadowDiff"></feComposite>
+      <feComposite operator="over" in2="SourceGraphic"></feComposite>
+    </filter>
+  </defs>
+
+  
+  
+
+  
+  <g transform="translate(10, -10)" filter="url(#dropShadow)">
+    
+    
+    <path fill="#91104b" d="M 280,330 C 280,360 310,390 330,390 C 345,390 350,375 345,360 C 360,365 390,360 405,340 C 420,320 410,295 380,295 C 340,295 300,310 280,330 Z" data-index="0"></path>
+    <path fill="#c41c69" d="M 295,335 C 300,355 320,375 335,375 C 345,375 365,355 385,340 C 395,330 390,310 370,310 C 340,310 310,320 295,335 Z" data-index="1" style="opacity: 1;"></path>
+
+    
+    <path fill="url(#brainBase)" d="M 120,240 
+             C 90,260 100,310 130,310 
+             C 150,310 160,290 180,305 
+             C 200,320 220,350 260,350 
+             C 310,350 360,330 400,325 
+             C 440,320 460,290 450,240 
+             C 440,190 410,140 350,130 
+             C 290,120 250,140 220,145 
+             C 180,150 140,170 120,240 Z" data-index="2"></path>
+
+    
+    <g opacity="0.85" stroke-linejoin="round" stroke-linecap="round" stroke-width="8" stroke="#700633" fill="none">
+      
+      <path d="M 125,245 C 115,220 140,190 170,185" data-index="3"></path>
+      <path d="M 180,165 C 210,150 250,155 270,175" data-index="4"></path>
+      <path d="M 290,140 C 330,140 390,160 415,210" data-index="5"></path>
+      <path d="M 430,230 C 445,260 420,300 390,310" data-index="6"></path>
+      
+      
+      <path d="M 185,300 C 180,260 215,250 230,225" data-index="7"></path>
+      <path d="M 230,225 C 240,200 210,180 235,170" data-index="8"></path>
+      
+      <path d="M 210,275 C 240,270 270,290 300,280" data-index="9"></path>
+      <path d="M 300,280 C 330,270 340,240 375,240" data-index="10"></path>
+      
+      <path d="M 270,320 C 275,295 310,305 340,295" data-index="11"></path>
+      <path d="M 340,295 C 370,285 390,295 415,275" data-index="12"></path>
+      
+      <path d="M 275,215 C 290,240 310,210 335,225" data-index="13"></path>
+      <path d="M 335,225 C 360,240 360,180 390,195" data-index="14"></path>
+      
+      <path d="M 295,170 C 310,195 340,185 350,160" data-index="15"></path>
+      
+      
+      <path d="M 125,260 C 145,265 155,245 180,250" data-index="16"></path>
+      <path d="M 145,285 C 160,280 170,295 195,285" data-index="17"></path>
+      <path d="M 335,320 C 360,315 385,320 400,300" data-index="18"></path>
+    </g>
+
+    
+    <g filter="url(#innerGlow)" opacity="0.6" stroke-linecap="round" stroke-width="5" stroke="#ff8dc4" fill="none">
+      <path d="M 140,230 C 135,210 155,195 175,195" data-index="19"></path>
+      <path d="M 195,175 C 220,160 245,165 260,180" data-index="20"></path>
+      <path d="M 300,152 C 335,152 380,170 400,205" data-index="21"></path>
+      <path d="M 195,240 C 205,215 225,210 240,190" data-index="22"></path>
+      <path d="M 225,260 C 250,255 275,275 305,265" data-index="23"></path>
+      <path d="M 315,265 C 340,255 350,230 380,230" data-index="24"></path>
+      <path d="M 285,200 C 300,225 315,200 340,215" data-index="25"></path>
+      <path d="M 345,210 C 365,225 370,190 395,185" data-index="26"></path>
+      <path d="M 155,255 C 165,255 170,240 185,242" data-index="27"></path>
+      <path d="M 280,305 C 300,290 325,295 345,285" data-index="28"></path>
+    </g>
+    
+    
+    <g opacity="0.4" stroke-linecap="round" stroke-width="1.5" stroke="#ffffff" fill="none">
+      <path d="M 210,170 C 225,163 245,167 255,176" data-index="29"></path>
+      <path d="M 320,156 C 345,156 370,167 385,185" data-index="30"></path>
+      <path d="M 142,222 C 140,215 150,203 162,201" data-index="31"></path>
+    </g>
+  </g>
+</svg>

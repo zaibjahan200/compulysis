@@ -116,6 +116,7 @@ class Settings:
         self.SMTP_HOST: str = _smtp_host.rstrip("/")
         self.SMTP_USER: str = os.getenv("SMTP_USER", "").strip().strip("'\"")
         self.SMTP_PASSWORD: str = os.getenv("SMTP_PASSWORD", "").strip().strip("'\"")
+        self.FRONTEND_URL: str = os.getenv("FRONTEND_URL", "").strip().strip("'\"").rstrip("/")
 
         # Environment
         self.ENVIRONMENT: str = os.getenv("ENVIRONMENT", "development")

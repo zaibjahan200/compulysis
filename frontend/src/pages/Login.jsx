@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Brain, Mail, Lock, Eye, EyeOff, AlertCircle, User, Building, FileText } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
+import { authService } from '../services/authService';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -104,15 +105,18 @@ const Login = () => {
     setError('');
     setSuccess('');
 
-    // Simulate password reset email
-    setTimeout(() => {
-      setSuccess('Password reset instructions have been sent to your email.');
-      setLoading(false);
+    try {
+      const response = await authService.forgotPassword(forgotPasswordData.email);
+      setSuccess(response.message || 'Password reset instructions have been sent to your email.');
       setTimeout(() => {
         setActiveTab('login');
         setSuccess('');
       }, 3000);
-    }, 1500);
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Unable to send reset instructions. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

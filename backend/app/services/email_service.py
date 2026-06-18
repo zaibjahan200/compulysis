@@ -3,6 +3,7 @@ import smtplib
 import socket
 import ssl
 import struct
+from urllib.parse import quote
 from typing import Optional
 import logging
 
@@ -207,5 +208,72 @@ class EmailService:
                 return
         except Exception as exc2:
             error_msg = f"Failed to send email. Port 587 error: {first_error}. Port 465 error: {exc2}."
+            logger.error(error_msg)
+            raise RuntimeError(error_msg) from exc2
+
+    @staticmethod
+    def send_password_reset_email(recipient_email: str, reset_token: str) -> None:
+        if not EmailService.is_configured():
+            raise RuntimeError(
+                "SMTP is not configured. Set SMTP_HOST, SMTP_USER, and SMTP_PASSWORD in backend environment."
+            )
+
+        frontend_url = settings.FRONTEND_URL or "http://localhost:5173"
+        reset_link = f"{frontend_url}/reset-password?token={quote(reset_token)}"
+
+        message = EmailMessage()
+        message["Subject"] = "Reset your Compulysis password"
+        message["From"] = settings.SMTP_USER
+        message["To"] = recipient_email
+
+        text_body = (
+            "Compulysis password reset\n\n"
+            "Use the link below to create a new password. This link expires in 1 hour.\n\n"
+            f"{reset_link}\n\n"
+            "If you did not request a password reset, you can ignore this email."
+        )
+
+        html_body = f"""
+        <html>
+          <body>
+            <h2>Reset your Compulysis password</h2>
+            <p>Use the link below to create a new password. This link expires in 1 hour.</p>
+            <p><a href="{reset_link}">Reset password</a></p>
+            <p>If you did not request a password reset, you can ignore this email.</p>
+          </body>
+        </html>
+        """
+
+        message.set_content(text_body)
+        message.add_alternative(html_body, subtype="html")
+
+        host = settings.SMTP_HOST
+        user = settings.SMTP_USER
+        password = settings.SMTP_PASSWORD
+
+        first_error = None
+        try:
+            logger.info(f"Attempting _RawSMTP connection to {host}:587")
+            with _RawSMTP(host, 587, timeout=15) as server:
+                server.ehlo()
+                server.starttls()
+                server.ehlo()
+                server.login(user, password)
+                server.send_message(message)
+                logger.info("Password reset email sent successfully via port 587.")
+                return
+        except Exception as exc1:
+            first_error = exc1
+            logger.warning(f"Port 587 failed: {exc1}")
+
+        try:
+            logger.info(f"Attempting _RawSMTP_SSL connection to {host}:465")
+            with _RawSMTP_SSL(host, 465, timeout=15) as server:
+                server.login(user, password)
+                server.send_message(message)
+                logger.info("Password reset email sent successfully via SSL port 465.")
+                return
+        except Exception as exc2:
+            error_msg = f"Failed to send password reset email. Port 587 error: {first_error}. Port 465 error: {exc2}."
             logger.error(error_msg)
             raise RuntimeError(error_msg) from exc2

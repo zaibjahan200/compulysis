@@ -6,6 +6,7 @@ import { useAuth } from './hooks/useAuth';
 import MainLayout from './components/layout/MainLayout';
 
 const Login = lazy(() => import('./pages/Login'));
+const ResetPassword = lazy(() => import('./pages/ResetPassword'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const PatientManagement = lazy(() => import('./pages/PatientManagement'));
 const Assessment = lazy(() => import('./pages/Assessment'));
@@ -45,6 +46,7 @@ function AppRoutes() {
     >
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
         <Route
           path="/*"
