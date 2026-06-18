@@ -33,6 +33,7 @@ import {
 } from "recharts";
 import { useAuth } from "../hooks/useAuth";
 import { dataExplorerService } from "../services/dataExplorerService";
+import { exportDataExplorerReport } from "../utils/dataExplorerReportExport";
 
 const DataExplorer = () => {
   const { user } = useAuth();
@@ -104,9 +105,20 @@ const DataExplorer = () => {
   };
 
   const handleExportData = () => {
-    alert(
-      "Export functionality - In production, this would generate a CSV/PDF report"
-    );
+    try {
+      exportDataExplorerReport({
+        dataSource,
+        filters,
+        filteredCount,
+        totalCount,
+        demographicsData,
+        ocdAnalysisData,
+        correlationData,
+      });
+    } catch (error) {
+      console.error("Error exporting explorer report:", error);
+      alert("Unable to export the report right now. Please try again.");
+    }
   };
 
   if (loading) {

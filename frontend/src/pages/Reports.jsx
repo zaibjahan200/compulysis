@@ -531,10 +531,10 @@ const ReportPreviewModal = ({ report, onClose, onDownload, onPrint }) => {
             <h4 className="text-lg font-semibold text-gray-800 mb-4">Dimension Scores</h4>
             <div className="space-y-3">
               {report.dimensionScores?.map((dim, index) => (
-                <div key={index} className="flex items-center justify-between">
-                  <span className="text-sm text-gray-700">{dim.name}</span>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-48 bg-gray-200 rounded-full h-2">
+                <div key={index} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 min-w-0">
+                  <span className="text-sm text-gray-700 break-words whitespace-normal min-w-0">{dim.name}</span>
+                  <div className="flex items-center space-x-3 shrink-0 sm:w-auto">
+                    <div className="w-40 sm:w-48 bg-gray-200 rounded-full h-2">
                       <div
                         className={`h-2 rounded-full ${
                           dim.score >= 3 ? 'bg-red-500' :
@@ -544,7 +544,7 @@ const ReportPreviewModal = ({ report, onClose, onDownload, onPrint }) => {
                         style={{ width: `${(dim.score / 4) * 100}%` }}
                       />
                     </div>
-                    <span className="font-semibold text-gray-900 w-8">{dim.score}/4</span>
+                    <span className="font-semibold text-gray-900 w-8 text-right">{dim.score}/4</span>
                   </div>
                 </div>
               ))}

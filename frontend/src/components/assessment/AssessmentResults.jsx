@@ -249,14 +249,14 @@ const AssessmentResults = ({ results, onReset, onSave }) => {
                   </h4>
                   <div className="space-y-2">
                     {dimensionAnalysis.slice(0, 5).map((dim, index) => (
-                      <div key={index} className="flex items-center justify-between">
-                        <div className="flex items-center flex-1">
+                      <div key={index} className="flex items-start justify-between gap-2 min-w-0">
+                        <div className="flex items-start flex-1 min-w-0">
                           <span className="text-2xl mr-2">{dim.color}</span>
-                          <span className="text-sm text-gray-700 truncate">
+                          <span className="text-sm text-gray-700 break-words whitespace-normal min-w-0">
                             {dim.dimension}
                           </span>
                         </div>
-                        <span className="font-bold text-gray-900 ml-2">
+                        <span className="font-bold text-gray-900 ml-2 shrink-0">
                           {dim.score}/4
                         </span>
                       </div>
@@ -284,12 +284,12 @@ const AssessmentResults = ({ results, onReset, onSave }) => {
                       'bg-green-50 border-green-200'
                     }`}
                   >
-                    <div className="flex items-start justify-between mb-2">
-                      <h4 className="font-semibold text-gray-800 flex items-center">
+                    <div className="flex items-start justify-between mb-2 gap-2 min-w-0">
+                      <h4 className="font-semibold text-gray-800 flex items-start min-w-0">
                         <span className="text-2xl mr-2">{dim.color}</span>
-                        {dim.dimension}
+                        <span className="break-words whitespace-normal">{dim.dimension}</span>
                       </h4>
-                      <span className={`px-2 py-1 rounded-full text-xs font-bold ${
+                      <span className={`px-2 py-1 rounded-full text-xs font-bold shrink-0 ${
                         dim.score >= 3 ? 'bg-red-200 text-red-800' :
                         dim.score >= 2 ? 'bg-yellow-200 text-yellow-800' :
                         'bg-green-200 text-green-800'
