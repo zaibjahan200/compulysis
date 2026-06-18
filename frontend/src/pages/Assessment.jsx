@@ -87,7 +87,7 @@ const Assessment = () => {
         .map((d) => `• ${d.dimension}: ${d.score}/4`)
         .join(
           "\n"
-        )}\n\nPlease consider immediate consultation with a qualified mental health professional.`;
+        )}\n\nPlease consider treatment in these specific dimensions for the patient. Recommendations for all risk levels should also be written from psychologists`;
 
       alert(alertMessage);
     }

@@ -32,7 +32,6 @@ import { modelLabService } from '../services/modelLabService';
 
 const ModelLab = () => {
   const [loading, setLoading] = useState(true);
-  const [selectedModel, setSelectedModel] = useState('Logistic Regression');
   const [summary, setSummary] = useState(null);
 
   // Model comparison data (from your research)
@@ -161,7 +160,6 @@ const ModelLab = () => {
   }, []);
 
   const mergedModelResults = {
-    ...modelResults,
     'Logistic Regression': {
       ...modelResults['Logistic Regression'],
       accuracy: summary?.logisticRegression?.accuracy ?? modelResults['Logistic Regression'].accuracy,
@@ -238,7 +236,7 @@ const ModelLab = () => {
     );
   }
 
-  const currentModel = mergedModelResults[selectedModel];
+  const currentModel = mergedModelResults['Logistic Regression'];
   const featureImportanceMap = (currentModel.featureImportance || []).reduce(
     (acc, item) => {
       const normalized = normalizeFeatureName(item.feature);
@@ -320,7 +318,7 @@ const ModelLab = () => {
       <div className="bg-white rounded-xl shadow-card p-6">
         <h3 className="text-xl font-semibold text-gray-800 mb-6 flex items-center">
           <Target className="w-6 h-6 mr-2 text-primary-600" />
-          Model Performance Comparison
+          Logistic Regression Performance
         </h3>
         
         <ResponsiveContainer width="100%" height={350}>
@@ -336,41 +334,6 @@ const ModelLab = () => {
             <Bar dataKey="F1-Score" fill="#4facfe" />
           </BarChart>
         </ResponsiveContainer>
-      </div>
-
-      {/* Model Selector */}
-      <div className="bg-white rounded-xl shadow-card p-6">
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">Select Model for Detailed Analysis</h3>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          {Object.keys(mergedModelResults).map((model) => (
-            <button
-              key={model}
-              onClick={() => setSelectedModel(model)}
-              className={`p-4 rounded-lg border-2 transition-all ${
-                selectedModel === model
-                  ? 'border-primary-500 bg-primary-50 shadow-lg'
-                  : 'border-gray-200 hover:border-primary-300'
-              }`}
-            >
-              <div className="flex items-center justify-between mb-2">
-                <FlaskConical className={`w-5 h-5 ${
-                  selectedModel === model ? 'text-primary-600' : 'text-gray-400'
-                }`} />
-                {model === 'Logistic Regression' && (
-                  <Award className="w-5 h-5 text-yellow-500" title="Best Model" />
-                )}
-              </div>
-              <p className={`font-semibold text-sm ${
-                selectedModel === model ? 'text-primary-700' : 'text-gray-700'
-              }`}>
-                {model}
-              </p>
-              <p className="text-xs text-gray-500 mt-1">
-                {mergedModelResults[model].accuracy.toFixed(2)}% Accuracy
-              </p>
-            </button>
-          ))}
-        </div>
       </div>
 
       {/* Selected Model Details */}
@@ -567,7 +530,7 @@ const ModelLab = () => {
           Clinical Implications
         </h3>
         <p className="text-green-800 mb-3">
-          The {selectedModel} model demonstrates strong predictive performance for OCD risk assessment.
+          The Logistic Regression model demonstrates strong predictive performance for OCD risk assessment.
           With {currentModel.accuracy.toFixed(2)}% accuracy, this model can effectively assist clinicians in:
         </p>
         <ul className="space-y-2 text-green-700">

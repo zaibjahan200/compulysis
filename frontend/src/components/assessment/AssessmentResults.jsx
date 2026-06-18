@@ -443,8 +443,7 @@ const AssessmentResults = ({ results, onReset, onSave }) => {
                     <h4 className="font-semibold text-yellow-800 mb-2">Important Disclaimer</h4>
                     <p className="text-sm text-yellow-700">
                       This assessment is for screening and early diagnosis purposes only and does not 
-                      constitute a professional medical diagnosis. Always consult qualified mental health 
-                      professionals for proper evaluation and treatment. This tool should be used as part 
+                      constitute a professional medical diagnosis. This tool should be used as part 
                       of a comprehensive clinical assessment process.
                     </p>
                   </div>
