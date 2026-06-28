@@ -1,5 +1,12 @@
-# Session Save — 2026-02-28
+# Session Save — 28-6-2026
+Model Lab is now hidden from the UI without deleting the page. I added a temporary disable flag plus console warnings, removed the visible sidebar/dashboard entry points, and left commented re-enable lines in place so you can restore access by uncommenting them later. The main changes are in App.jsx, MainLayout.jsx, and Dashboard.jsx.
 
+To reopen Model Lab, uncomment the marked lines in those three files:
+
+the /model-lab route in App.jsx
+the Model Laboratory nav item in MainLayout.jsx
+the dashboard onClick shortcut in Dashboard.jsx
+I also verified the edited files with get_errors; they’re syntactically clean.
 ## Workspace
 - Root: `d:\COMSATS\COMSATS\Projects\Compulysis Project\compulysis`
 - OS: Windows

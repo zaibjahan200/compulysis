@@ -14,6 +14,8 @@ const ModelLab = lazy(() => import('./pages/ModelLab'));
 const DataExplorer = lazy(() => import('./pages/DataExplorer'));
 const Reports = lazy(() => import('./pages/Reports'));
 
+const MODEL_LAB_ENABLED = false;
+
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
@@ -33,6 +35,10 @@ const ProtectedRoute = ({ children }) => {
 };
 
 function AppRoutes() {
+  if (!MODEL_LAB_ENABLED) {
+    console.warn('[Compulysis] Model Lab is temporarily disabled from the UI. Re-enable by uncommenting the /model-lab route in App.jsx and the Model Laboratory entry in MainLayout.jsx and Dashboard.jsx.');
+  }
+
   return (
     <Suspense
       fallback={
@@ -57,7 +63,13 @@ function AppRoutes() {
                   <Route path="/" element={<Dashboard />} />
                   <Route path="/patients" element={<PatientManagement />} />
                   <Route path="/assessment/:patientId?" element={<Assessment />} />
+                  {/* Temporarily hidden: uncomment the next line to restore Model Lab access.
                   <Route path="/model-lab" element={<ModelLab />} />
+                  */}
+                  <Route
+                    path="/model-lab"
+                    element={<Navigate to="/" replace />}
+                  />
                   <Route path="/data-explorer" element={<DataExplorer />} />
                   <Route path="/reports" element={<Reports />} />
                 </Routes>

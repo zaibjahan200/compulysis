@@ -15,6 +15,8 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 
+const MODEL_LAB_ENABLED = false;
+
 const MainLayout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const { user, logout } = useAuth();
@@ -24,10 +26,13 @@ const MainLayout = ({ children }) => {
     { path: '/', icon: LayoutDashboard, label: 'Dashboard' },
     { path: '/patients', icon: Users, label: 'Patient Management' },
     { path: '/assessment', icon: ClipboardList, label: 'OCD Assessment' },
-    { path: '/model-lab', icon: FlaskConical, label: 'Model Laboratory' },
     { path: '/data-explorer', icon: BarChart3, label: 'Data Explorer' },
     { path: '/reports', icon: FileText, label: 'Reports' },
   ];
+
+  if (!MODEL_LAB_ENABLED) {
+    console.warn('[Compulysis] Model Laboratory menu item is hidden. Re-enable it by uncommenting the /model-lab nav item in MainLayout.jsx.');
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -63,6 +68,9 @@ const MainLayout = ({ children }) => {
 
           {/* Navigation */}
           <nav className="space-y-2">
+            {/* Temporarily hidden: uncomment the nav item below to restore Model Lab access.
+            { path: '/model-lab', icon: FlaskConical, label: 'Model Laboratory' },
+            */}
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.path;

@@ -42,8 +42,13 @@ const Dashboard = () => {
   const [insights, setInsights] = useState(null);
   const [recentActivities, setRecentActivities] = useState([]);
   const [upcomingTasks, setUpcomingTasks] = useState([]);
+  const modelLabEnabled = false;
 
   useEffect(() => {
+    if (!modelLabEnabled) {
+      console.warn('[Compulysis] Model Lab dashboard shortcut is hidden. Re-enable by uncommenting the Model Accuracy card on Dashboard.jsx.');
+    }
+
     const fetchDashboardData = async () => {
       try {
         const [overview, trends, risks, keyInsights, activities, tasks] =
@@ -149,8 +154,10 @@ const Dashboard = () => {
           gradient="from-purple-400 to-purple-600"
           iconBg="bg-purple-100"
           iconColor="text-purple-600"
-          onClick={() => navigate("/model-lab")}
         />
+        {/* Temporarily hidden: uncomment the line below to restore Model Lab access.
+        onClick={() => navigate("/model-lab")}
+        */}
       </div>
 
       {/* Main Content Grid */}
